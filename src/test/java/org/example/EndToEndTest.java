@@ -13,5 +13,5 @@ import org.springframework.boot.test.context.SpringBootTest;
         features = "classpath:features"
 )
 @SpringBootTest
-public class EndToEndTestSuite {
+public class EndToEndTest {
 }
