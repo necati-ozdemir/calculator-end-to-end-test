@@ -1,0 +1,33 @@
+---
+version: '3.2'
+services:
+
+  addition-service:
+    hostname: addition-service
+    image: registry.hub.docker.com/addition-service:latest
+    ports:
+      - "8070:8070"
+    environment:
+      SERVER_PORT: 8070
+#      SERVER_ADDRESS: ${WORKER_IP}
+  subtraction-service:
+    hostname: subtraction-service
+    image: registry.hub.docker.com/subtraction-service:latest
+    ports:
+      - "8071:8071"
+    environment:
+      SERVER_PORT: 8071
+#      SERVER_ADDRESS: ${WORKER_IP}
+  calculator-service:
+    hostname: calculator-service
+    image: registry.hub.docker.com/calculator-service:latest
+    ports:
+      - "8072:8072"
+    environment:
+      CALCULATOR_ADDITIONSERVICEURL: http://${WORKER_IP}:8070/api/addition/calculate
+      CALCULATOR_SUBTRACTIONSERVICEURL: http://${WORKER_IP}:8071/api/subtraction/calculate
+      SERVER_PORT: 8072
+#      SERVER_ADDRESS: ${WORKER_IP}
+    depends_on:
+      - addition-service
+      - subtraction-service
