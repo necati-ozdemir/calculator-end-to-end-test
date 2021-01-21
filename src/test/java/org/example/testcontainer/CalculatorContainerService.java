@@ -1,33 +1,37 @@
 package org.example.testcontainer;
 
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.testcontainers.containers.BrowserWebDriverContainer;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.Network;
 import org.testcontainers.utility.DockerImageName;
 
-@Component
-public class CalculatorContainers {
+import java.io.File;
+
+@Service
+public class CalculatorContainerService {
     private static final DockerImageName ADDITION_SERVICE = DockerImageName.
-            parse("registry.hub.docker.com/addition-service:latest")
+            parse("mbarkin26/addition-service:latest")
             .asCompatibleSubstituteFor("addition-service");
     private static final DockerImageName SUBTRACTION_SERVICE = DockerImageName
-            .parse("registry.hub.docker.com/subtraction-service:latest")
+            .parse("mbarkin26/subtraction-service:latest")
             .asCompatibleSubstituteFor("subtraction-service");
     private static final DockerImageName CALCULATOR_SERVICE = DockerImageName
-            .parse("registry.hub.docker.com/calculator-service:latest")
+            .parse("mbarkin26/calculator-service:latest")
             .asCompatibleSubstituteFor("calculator-service");
 //    private static final DockerImageName SELENIUM_SERVICE = DockerImageName
 //            .parse("selenium/node-chrome:latest")
 //            .asCompatibleSubstituteFor("node-chrome");
 
-
     private Network network;
     private GenericContainer<?> additionContainer;
     private GenericContainer<?> subtractionContainer;
     private GenericContainer<?> calculatorContainer;
-//    private static BrowserWebDriverContainer<?> chromeContainer;
+    private BrowserWebDriverContainer<?> chromeContainer;
 
-    public CalculatorContainers() {
+    public CalculatorContainerService() {
         network = Network.newNetwork();
         additionContainer = new GenericContainer<>(ADDITION_SERVICE)
                 .withExposedPorts(8070)
@@ -48,11 +52,11 @@ public class CalculatorContainers {
                 .withEnv("SERVER_PORT", "8072")
                 .withEnv("SERVER_ADDRESS", "localhost");
 
-//        chromeContainer = new BrowserWebDriverContainer<>(SELENIUM_SERVICE)
-//                .withNetwork(network)
-//                .withNetworkAliases("chrome")
-//                .withCapabilities(DesiredCapabilities.chrome())
-//                .withRecordingMode(BrowserWebDriverContainer.VncRecordingMode.RECORD_ALL, new File("./target/"));
+        chromeContainer = new BrowserWebDriverContainer<>()
+                .withNetwork(network)
+                .withNetworkAliases("chrome")
+                .withCapabilities(DesiredCapabilities.chrome())
+                .withRecordingMode(BrowserWebDriverContainer.VncRecordingMode.RECORD_ALL, new File("./target/"));
 //                .withExposedPorts(8072)
 //                .withNetwork(network)
 //                .withEnv("SERVER_PORT", "8072")
@@ -61,14 +65,14 @@ public class CalculatorContainers {
         additionContainer.start();
         subtractionContainer.start();
         calculatorContainer.start();
-//        chromeContainer.start();
+        chromeContainer.start();
     }
 
     public void stopContainers(){
         additionContainer.close();
         subtractionContainer.close();
         calculatorContainer.close();
-//        chromeContainer.close();
+        chromeContainer.close();
         network.close();
     }
 
@@ -98,6 +102,14 @@ public class CalculatorContainers {
 
     public GenericContainer<?> getCalculatorContainer() {
         return calculatorContainer;
+    }
+
+    public BrowserWebDriverContainer<?> getChromeContainer() {
+        return chromeContainer;
+    }
+
+    public void setChromeContainer(BrowserWebDriverContainer<?> chromeContainer) {
+        this.chromeContainer = chromeContainer;
     }
 
     public void setCalculatorContainer(GenericContainer<?> calculatorContainer) {

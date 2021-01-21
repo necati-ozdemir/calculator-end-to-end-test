@@ -1,33 +1,55 @@
 ---
 version: '3.2'
+#networks:
+#    isolation-network:
+#      driver: bridge
 services:
-
+  calculator-ui:
+    container_name: calculator-ui
+    image: calculator-ui:latest
+    #    build:
+    #      context: .
+    #      dockerfile: Dockerfile
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - 3001:3000
   addition-service:
     hostname: addition-service
-    image: registry.hub.docker.com/addition-service:latest
+    image: mbarkin26/addition-service:latest
     ports:
       - "8070:8070"
     environment:
       SERVER_PORT: 8070
-#      SERVER_ADDRESS: ${WORKER_IP}
+  #      SERVER_ADDRESS: localhost
+  #    networks:
+  #      - isolation-network
   subtraction-service:
     hostname: subtraction-service
-    image: registry.hub.docker.com/subtraction-service:latest
+    image: mbarkin26/subtraction-service:latest
     ports:
       - "8071:8071"
     environment:
       SERVER_PORT: 8071
-#      SERVER_ADDRESS: ${WORKER_IP}
+  #    networks:
+  #      - isolation-network
+  #      SERVER_ADDRESS: localhost
   calculator-service:
     hostname: calculator-service
-    image: registry.hub.docker.com/calculator-service:latest
+    image: mbarkin26/calculator-service:latest
     ports:
       - "8072:8072"
     environment:
       CALCULATOR_ADDITIONSERVICEURL: http://${WORKER_IP}:8070/api/addition/calculate
       CALCULATOR_SUBTRACTIONSERVICEURL: http://${WORKER_IP}:8071/api/subtraction/calculate
       SERVER_PORT: 8072
-#      SERVER_ADDRESS: ${WORKER_IP}
+    #      SERVER_ADDRESS: ${WORKER_IP}
     depends_on:
       - addition-service
       - subtraction-service
+#    links:
+#      - addition-service
+#      - subtraction-service
+#    networks:
+#      - isolation-network
