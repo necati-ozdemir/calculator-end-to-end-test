@@ -1,7 +1,7 @@
 package org.example.testcontainer;
 
 public interface IContainerService {
-    Integer getPort();
+    Integer getContainerPort();
 
     void closeContainer();
 }

@@ -1,5 +1,6 @@
 package org.example.testcontainer;
 
+import org.example.config.AdditionServiceProperties;
 import org.springframework.stereotype.Service;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.utility.DockerImageName;
@@ -12,17 +13,26 @@ public final class AdditionContainerService implements IContainerService {
 
     private final GenericContainer<?> additionContainer;
 
-    public AdditionContainerService(NetworkService networkService) {
+    private final Integer containerPort;
+
+    public AdditionContainerService(NetworkService networkService,
+                                    AdditionServiceProperties additionServiceProperties) {
+
         this.additionContainer = new GenericContainer<>(ADDITION_SERVICE)
-                .withExposedPorts(8070)
+                .withExposedPorts(additionServiceProperties.getPort())
+                .withPrivilegedMode(true)
                 .withNetwork(networkService.getNetwork())
-                .withEnv("SERVER_PORT", "8070");
+                .withEnv("SERVER_PORT", additionServiceProperties.getPort().toString());
 
         this.additionContainer.start();
+
+        this.containerPort = this.additionContainer.getMappedPort(additionServiceProperties.getPort());
+//        this.containerPort = additionServiceProperties.getPort();
+//        this.containerPort = this.additionContainer.getFirstMappedPort();
     }
 
-    public Integer getPort() {
-        return this.additionContainer.getMappedPort(8070);
+    public Integer getContainerPort() {
+        return this.containerPort;
     }
 
     public void closeContainer() {

@@ -1,5 +1,6 @@
 package org.example.testcontainer;
 
+import org.example.config.SubtractionServiceProperties;
 import org.springframework.stereotype.Service;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.utility.DockerImageName;
@@ -12,17 +13,25 @@ public final class SubtractionContainerService implements IContainerService {
 
     private final GenericContainer<?> subtractionContainer;
 
-    public SubtractionContainerService(NetworkService networkService) {
+    private final Integer containerPort;
+
+    public SubtractionContainerService(NetworkService networkService,
+                                       SubtractionServiceProperties subtractionServiceProperties) {
         this.subtractionContainer = new GenericContainer<>(SUBTRACTION_SERVICE)
-                .withExposedPorts(8071)
+                .withExposedPorts(subtractionServiceProperties.getPort())
+                .withPrivilegedMode(true)
                 .withNetwork(networkService.getNetwork())
-                .withEnv("SERVER_PORT", "8071");
+                .withEnv("SERVER_PORT", subtractionServiceProperties.getPort().toString());
 
         this.subtractionContainer.start();
+
+        this.containerPort = this.subtractionContainer.getMappedPort(subtractionServiceProperties.getPort());
+//        this.containerPort = subtractionServiceProperties.getPort();
+//        this.containerPort = this.subtractionContainer.getFirstMappedPort();
     }
 
-    public Integer getPort() {
-        return this.subtractionContainer.getMappedPort(8071);
+    public Integer getContainerPort() {
+        return this.containerPort;
     }
 
     public void closeContainer() {

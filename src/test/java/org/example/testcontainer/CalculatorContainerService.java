@@ -1,5 +1,7 @@
 package org.example.testcontainer;
 
+import org.example.config.CalculatorServiceProperties;
+import org.example.testcontainer.util.ContainerUrlUtil;
 import org.springframework.stereotype.Service;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.utility.DockerImageName;
@@ -11,27 +13,41 @@ public final class CalculatorContainerService implements IContainerService {
             .parse("mbarkin26/calculator-service:latest")
             .asCompatibleSubstituteFor("calculator-service");
 
+    private final Integer containerPort;
+
     private final GenericContainer<?> calculatorContainer;
 
     public CalculatorContainerService(NetworkService networkService,
+                                      CalculatorServiceProperties calculatorServiceProperties,
                                       AdditionContainerService additionContainerService,
                                       SubtractionContainerService subtractionContainerService) {
 
         this.calculatorContainer = new GenericContainer<>(CALCULATOR_SERVICE)
-                .withExposedPorts(8072)
+                .withExposedPorts(calculatorServiceProperties.getPort())
+                .withPrivilegedMode(true)
                 .withNetwork(networkService.getNetwork())
-                .withEnv("CALCULATOR_ADDITIONSERVICEURL",
-                        "http://10.150.21.212:" + additionContainerService.getPort() + "/api/addition/calculate")
-                .withEnv("CALCULATOR_SUBTRACTIONSERVICEURL",
-                        "http://10.150.21.212:" + subtractionContainerService.getPort() + "/api/subtraction/calculate")
-                .withEnv("SERVER_PORT", "8072")
+                .withEnv(calculatorServiceProperties.getAdditionServiceUrlEnvName(),
+                        ContainerUrlUtil.containerPortReplacer(
+                                calculatorServiceProperties.getAdditionServiceUrlEnvValue(),
+                                additionContainerService.getContainerPort()
+                        ))
+                .withEnv(calculatorServiceProperties.getSubtractionServiceUrlEnvName(),
+                        ContainerUrlUtil.containerPortReplacer(
+                                calculatorServiceProperties.getSubtractionServiceUrlEnvValue(),
+                                subtractionContainerService.getContainerPort()
+                        ))
+                .withEnv("SERVER_PORT", calculatorServiceProperties.getPort().toString())
                 .dependsOn(additionContainerService.getAdditionContainer(), subtractionContainerService.getSubtractionContainer());
 
-        calculatorContainer.start();
+        this.calculatorContainer.start();
+
+        this.containerPort = this.calculatorContainer.getMappedPort(calculatorServiceProperties.getPort());
+//        this.containerPort = calculatorServiceProperties.getPort();
+//        this.containerPort = this.calculatorContainer.getFirstMappedPort();
     }
 
-    public Integer getPort() {
-        return this.calculatorContainer.getMappedPort(8072);
+    public Integer getContainerPort() {
+        return this.containerPort;
     }
 
     public void closeContainer() {

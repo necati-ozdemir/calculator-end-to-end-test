@@ -1,6 +1,7 @@
 package org.example.testcontainer;
 
-import org.example.config.CalculatorTestProperties;
+import org.example.config.CalculatorUIProperties;
+import org.example.testcontainer.util.ContainerUrlUtil;
 import org.springframework.stereotype.Service;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
@@ -13,33 +14,48 @@ public final class CalculatorUIContainerService implements IContainerService {
             .asCompatibleSubstituteFor("calculator-ui");
 
     private final GenericContainer<?> calculatorUIContainer;
-    private final CalculatorTestProperties calculatorTestProperties;
+
+    private final String containerUrl;
+    private final Integer containerPort;
 
     public CalculatorUIContainerService(NetworkService networkService,
-                                        CalculatorTestProperties calculatorTestProperties,
+                                        CalculatorUIProperties calculatorUIProperties,
                                         CalculatorContainerService calculatorContainerService) {
 
-        this.calculatorTestProperties = calculatorTestProperties;
-
         this.calculatorUIContainer = new GenericContainer<>(CALCULATOR_UI)
-                .withExposedPorts(8073)
+                .withExposedPorts(calculatorUIProperties.getPort())
+                .withPrivilegedMode(true)
                 .withNetwork(networkService.getNetwork())
                 .waitingFor(Wait.forHttp("/"))
-                .withEnv("REACT_APP_CALCULATOR_SERVICE_ADDITION_URL",
-                        "http://10.150.21.212:" + calculatorContainerService.getPort() + "/calculator/addition")
-                .withEnv("REACT_APP_CALCULATOR_SERVICE_SUBTRACTION_URL",
-                        "http://10.150.21.212:" + calculatorContainerService.getPort() + "/calculator/subtraction")
-                .withEnv("PORT", "8073");
+                .withEnv(calculatorUIProperties.getCalculatorServiceAdditionUrlEnvName(),
+                        ContainerUrlUtil.containerPortReplacer(
+                                calculatorUIProperties.getCalculatorServiceAdditionUrlEnvValue(),
+                                calculatorContainerService.getContainerPort()
+                        ))
+                .withEnv(calculatorUIProperties.getCalculatorServiceSubtractionUrlEnvName(),
+                        ContainerUrlUtil.containerPortReplacer(
+                                calculatorUIProperties.getCalculatorServiceSubtractionUrlEnvValue(),
+                                calculatorContainerService.getContainerPort()
+                        ))
+                .withEnv("PORT", calculatorUIProperties.getPort().toString());
 
-        calculatorUIContainer.start();
+        this.calculatorUIContainer.start();
+
+        this.containerPort = this.calculatorUIContainer.getMappedPort(calculatorUIProperties.getPort());
+//        this.containerPort = calculatorUIProperties.getPort();
+//        this.containerPort = this.calculatorUIContainer.getFirstMappedPort();
+        this.containerUrl = ContainerUrlUtil.combineHttpUrlParts(
+                calculatorUIProperties.getIp(),
+                this.containerPort
+        );
     }
 
     public String getUrl() {
-        return "http://" + this.calculatorTestProperties.getWorkerIp() + ":" + this.getPort();
+        return this.containerUrl;
     }
 
-    public Integer getPort() {
-        return this.calculatorUIContainer.getMappedPort(8073);
+    public Integer getContainerPort() {
+        return this.containerPort;
     }
 
     public void closeContainer() {
