@@ -22,21 +22,21 @@ node {
 		"""
         }
     }*/
-withEnv(['TESTCONTAINERS_RYUK_DISABLED=true',
-'WORKSPACE_LOCAL=${env.WORKSPACE_LOCAL}'
-
-          ]) {
+// withEnv(['TESTCONTAINERS_RYUK_DISABLED=true',
+// 'WORKSPACE_LOCAL=${env.WORKSPACE_LOCAL}'
+//
+//           ]) {
       stage('Build') 
            {
 	//docker.image('alpine:3.5').inside {
-           echo "ryuk disabled is ${TESTCONTAINERS_RYUK_DISABLED}"
-           echo "WORKSPACE_LOCAL is ${WORKSPACE_LOCAL}as"
+//            echo "ryuk disabled is ${TESTCONTAINERS_RYUK_DISABLED}"
+//            echo "WORKSPACE_LOCAL is ${WORKSPACE_LOCAL}as"
             sh 'uname -a'
             sh 'mvn clean install'  
    //     }
 
           }
-}
+// }
     stage('Expose report') {
         archive '**/cucumber.json'
         cucumber '**/cucumber.json'
