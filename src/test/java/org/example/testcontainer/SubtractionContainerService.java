@@ -17,17 +17,15 @@ public final class SubtractionContainerService implements IContainerService {
 
     public SubtractionContainerService(NetworkService networkService,
                                        SubtractionServiceProperties subtractionServiceProperties) {
+
         this.subtractionContainer = new GenericContainer<>(SUBTRACTION_SERVICE)
                 .withExposedPorts(subtractionServiceProperties.getPort())
-                .withPrivilegedMode(true)
                 .withNetwork(networkService.getNetwork())
                 .withEnv("SERVER_PORT", subtractionServiceProperties.getPort().toString());
 
         this.subtractionContainer.start();
 
         this.containerPort = this.subtractionContainer.getMappedPort(subtractionServiceProperties.getPort());
-//        this.containerPort = subtractionServiceProperties.getPort();
-//        this.containerPort = this.subtractionContainer.getFirstMappedPort();
     }
 
     public Integer getContainerPort() {

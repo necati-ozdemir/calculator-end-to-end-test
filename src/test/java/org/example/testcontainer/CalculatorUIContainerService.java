@@ -24,7 +24,6 @@ public final class CalculatorUIContainerService implements IContainerService {
 
         this.calculatorUIContainer = new GenericContainer<>(CALCULATOR_UI)
                 .withExposedPorts(calculatorUIProperties.getPort())
-                .withPrivilegedMode(true)
                 .withNetwork(networkService.getNetwork())
                 .waitingFor(Wait.forHttp("/"))
                 .withEnv(calculatorUIProperties.getCalculatorServiceAdditionUrlEnvName(),
@@ -42,8 +41,6 @@ public final class CalculatorUIContainerService implements IContainerService {
         this.calculatorUIContainer.start();
 
         this.containerPort = this.calculatorUIContainer.getMappedPort(calculatorUIProperties.getPort());
-//        this.containerPort = calculatorUIProperties.getPort();
-//        this.containerPort = this.calculatorUIContainer.getFirstMappedPort();
         this.containerUrl = ContainerUrlUtil.combineHttpUrlParts(
                 calculatorUIProperties.getIp(),
                 this.containerPort

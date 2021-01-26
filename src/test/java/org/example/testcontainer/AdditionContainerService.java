@@ -7,8 +7,8 @@ import org.testcontainers.utility.DockerImageName;
 
 @Service
 public final class AdditionContainerService implements IContainerService {
-    private static final DockerImageName ADDITION_SERVICE = DockerImageName.
-            parse("mbarkin26/addition-service:latest")
+    private static final DockerImageName ADDITION_SERVICE = DockerImageName
+            .parse("mbarkin26/addition-service:latest")
             .asCompatibleSubstituteFor("addition-service");
 
     private final GenericContainer<?> additionContainer;
@@ -20,15 +20,12 @@ public final class AdditionContainerService implements IContainerService {
 
         this.additionContainer = new GenericContainer<>(ADDITION_SERVICE)
                 .withExposedPorts(additionServiceProperties.getPort())
-                .withPrivilegedMode(true)
                 .withNetwork(networkService.getNetwork())
                 .withEnv("SERVER_PORT", additionServiceProperties.getPort().toString());
 
         this.additionContainer.start();
 
         this.containerPort = this.additionContainer.getMappedPort(additionServiceProperties.getPort());
-//        this.containerPort = additionServiceProperties.getPort();
-//        this.containerPort = this.additionContainer.getFirstMappedPort();
     }
 
     public Integer getContainerPort() {

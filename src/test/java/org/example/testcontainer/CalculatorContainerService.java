@@ -24,7 +24,6 @@ public final class CalculatorContainerService implements IContainerService {
 
         this.calculatorContainer = new GenericContainer<>(CALCULATOR_SERVICE)
                 .withExposedPorts(calculatorServiceProperties.getPort())
-                .withPrivilegedMode(true)
                 .withNetwork(networkService.getNetwork())
                 .withEnv(calculatorServiceProperties.getAdditionServiceUrlEnvName(),
                         ContainerUrlUtil.containerPortReplacer(
@@ -42,8 +41,6 @@ public final class CalculatorContainerService implements IContainerService {
         this.calculatorContainer.start();
 
         this.containerPort = this.calculatorContainer.getMappedPort(calculatorServiceProperties.getPort());
-//        this.containerPort = calculatorServiceProperties.getPort();
-//        this.containerPort = this.calculatorContainer.getFirstMappedPort();
     }
 
     public Integer getContainerPort() {

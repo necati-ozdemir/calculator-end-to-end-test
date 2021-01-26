@@ -14,7 +14,6 @@ public final class SeleniumContainerService implements IContainerService {
     public SeleniumContainerService(NetworkService networkService) {
         this.chromeContainer = new BrowserWebDriverContainer<>()
                 .withNetwork(networkService.getNetwork())
-                .withPrivilegedMode(true)
                 .withNetworkAliases("chrome")
                 .withCapabilities(DesiredCapabilities.chrome())
                 .withRecordingMode(BrowserWebDriverContainer.VncRecordingMode.RECORD_ALL, new File("./target/"));
