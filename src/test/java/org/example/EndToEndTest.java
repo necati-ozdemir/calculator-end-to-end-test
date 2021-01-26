@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @RunWith(Cucumber.class)
 @CucumberContextConfiguration
 @CucumberOptions(
-//        publish = true,
+        plugin = {"pretty", "json:target/cucumber.json"},
         features = "classpath:features"
 )
 @SpringBootTest
