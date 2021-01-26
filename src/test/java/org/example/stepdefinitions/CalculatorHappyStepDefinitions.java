@@ -74,4 +74,18 @@ public final class CalculatorHappyStepDefinitions {
                 resultMessage
         );
     }
+
+    @Given("Numbers are given {} and {}")
+    public void numbersAreGivenAnd(String first, String secondValue) {
+        this.seleniumDriverService.getUrlInDriver(this.calculatorUIContainerService.getUrl());
+
+        this.seleniumDriverService.setElementValueByElementId(
+                this.calculatorUIProperties.getFirstValueElementId(),
+                first
+        );
+        this.seleniumDriverService.setElementValueByElementId(
+                this.calculatorUIProperties.getSecondValueElementId(),
+                secondValue
+        );
+    }
 }
