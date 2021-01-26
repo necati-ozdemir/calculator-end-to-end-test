@@ -44,7 +44,7 @@ node {
     stage('Import tasks to Jira for Features') {
 
 
-		def xrayConnectorId = "335af8bd-b7bd-41d4-ab8a-cde00f41bbd1"
+		def xrayConnectorId = "7bb900f6-4b49-494b-b184-f67c6ce65da8"
 	step([$class: 'XrayImportFeatureBuilder', folderPath: 'target/test-classes/features', projectKey: 'CAL', serverInstance: xrayConnectorId])
 
 	   /* def response = sh(script: "curl -u mnarin:mnarin -X GET -H 'Content-Type: application/json' 'http://10.150.17.73:8100/rest/api/2/issue/10123'", returnStdout: true)
@@ -61,7 +61,7 @@ node {
 		def testExecutionFieldId = 10007
 		def testEnvironmentFieldName = "customfield_10131"
 		def projectKey = "CAL"
-		def xrayConnectorId = "335af8bd-b7bd-41d4-ab8a-cde00f41bbd1"
+		def xrayConnectorId = "7bb900f6-4b49-494b-b184-f67c6ce65da8"
 		def info = '''{
 				"fields": {
 					"project": {
