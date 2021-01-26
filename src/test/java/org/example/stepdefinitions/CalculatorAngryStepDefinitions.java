@@ -10,8 +10,6 @@ import org.example.testcontainer.CalculatorUIContainerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -28,7 +26,7 @@ public final class CalculatorAngryStepDefinitions {
     @Autowired
     private CalculatorUIContainerService calculatorUIContainerService;
 
-    @Given("either of any value is not given")
+    @Given("Either of any value is not given")
     public void givenNumbers() {
         this.seleniumDriverService.getUrlInDriver(this.calculatorUIContainerService.getUrl());
 
@@ -38,7 +36,7 @@ public final class CalculatorAngryStepDefinitions {
         );// only first value is given
     }
 
-    @When("Necati wants to continue to {} operation")
+    @When("Necati wants to perform {} operation")
     public void calculateNumbers(CalculateType calculateType) {
         switch (calculateType) {
             case ADDITION:
@@ -61,10 +59,5 @@ public final class CalculatorAngryStepDefinitions {
                 this.calculatorUIProperties.getResultMessageElementId()),
                 "FAIL"
         );
-    }
-
-    @DynamicPropertySource//This annotation lets you override Spring configuration properties programmatically
-    static void properties(DynamicPropertyRegistry registry) {
-        // registry.add(key, value);
     }
 }

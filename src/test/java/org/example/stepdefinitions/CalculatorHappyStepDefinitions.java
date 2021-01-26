@@ -1,5 +1,6 @@
 package org.example.stepdefinitions;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -10,8 +11,8 @@ import org.example.testcontainer.CalculatorUIContainerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -28,8 +29,12 @@ public final class CalculatorHappyStepDefinitions {
     @Autowired
     private CalculatorUIContainerService calculatorUIContainerService;
 
-    @Given("{} and {} are given")
-    public void givenNumbers(String firstValue, String secondValue) {
+    @Given("The below numbers are given")
+    public void givenNumbers(DataTable dataTable) {
+        List<List<String>> givenList = dataTable.asLists(String.class);
+        String firstValue = givenList.get(1).get(0);
+        String secondValue = givenList.get(1).get(1);
+
         this.seleniumDriverService.getUrlInDriver(this.calculatorUIContainerService.getUrl());
 
         this.seleniumDriverService.setElementValueByElementId(
@@ -42,7 +47,7 @@ public final class CalculatorHappyStepDefinitions {
         );
     }
 
-    @When("Barkın wants to {} those two numbers")
+    @When("Barkın wants to perform {} those two numbers")
     public void calculateNumbers(CalculateType calculateType) {
         switch (calculateType) {
             case ADDITION:
@@ -56,7 +61,7 @@ public final class CalculatorHappyStepDefinitions {
         }
     }
 
-    @Then("Barkın should see {} result and {} message")
+    @Then("Barkın should see result {} and {} message")
     public void checkingResultNumber(String resultValue, String resultMessage) {
         this.seleniumDriverService.waitUntilElementValueIsFill(this.calculatorUIProperties.getResultValueElementId());
 
@@ -68,10 +73,5 @@ public final class CalculatorHappyStepDefinitions {
                 this.calculatorUIProperties.getResultMessageElementId()),
                 resultMessage
         );
-    }
-
-    @DynamicPropertySource//This annotation lets you override Spring configuration properties programmatically
-    static void properties(DynamicPropertyRegistry registry) {
-        // registry.add(key, value);
     }
 }
