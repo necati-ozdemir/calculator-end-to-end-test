@@ -1,6 +1,6 @@
 Ability: Student could succeed at SUBTRACTION operation
 
-  @CAL-12
+  @CAL-2
   Scenario: Valid two numbers are supplied
 
     Given The below numbers are given
