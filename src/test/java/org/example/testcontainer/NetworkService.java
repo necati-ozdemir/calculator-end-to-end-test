@@ -9,7 +9,7 @@ public final class NetworkService {
     private final Network network;
 
     public NetworkService() {
-        this.network = Network.SHARED;
+        this.network = Network.newNetwork();
     }
 
     public void closeNetwork() {
