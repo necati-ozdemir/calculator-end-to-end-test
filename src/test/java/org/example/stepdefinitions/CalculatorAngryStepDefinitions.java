@@ -55,8 +55,8 @@ public final class CalculatorAngryStepDefinitions {
         this.seleniumDriverService.waitUntilElementValueIsFill(this.calculatorUIProperties.getResultMessageElementId());
 
 //        assertEquals(this.seleniumDriverService.getElementValueByElementId("resultValue"), resultValue);
-        assertEquals(this.seleniumDriverService.getElementValueByElementId(
-                this.calculatorUIProperties.getResultMessageElementId()),
+        assertEquals(
+                this.seleniumDriverService.getElementValueByElementId(this.calculatorUIProperties.getResultMessageElementId()),
                 "FAIL"
         );
     }

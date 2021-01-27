@@ -1,6 +1,7 @@
 package org.example.testcontainer;
 
 import org.example.config.CalculatorServiceProperties;
+import org.example.testcontainer.network.INetworkService;
 import org.example.testcontainer.util.ContainerUrlUtil;
 import org.springframework.stereotype.Service;
 import org.testcontainers.containers.GenericContainer;
@@ -9,20 +10,20 @@ import org.testcontainers.utility.DockerImageName;
 @Service
 public final class CalculatorContainerService implements IContainerService {
 
-    private static final DockerImageName CALCULATOR_SERVICE = DockerImageName
-            .parse("mbarkin26/calculator-service:latest")
-            .asCompatibleSubstituteFor("calculator-service");
-
     private final Integer containerPort;
 
     private final GenericContainer<?> calculatorContainer;
 
-    public CalculatorContainerService(NetworkService networkService,
+    public CalculatorContainerService(INetworkService networkService,
                                       CalculatorServiceProperties calculatorServiceProperties,
                                       AdditionContainerService additionContainerService,
                                       SubtractionContainerService subtractionContainerService) {
 
-        this.calculatorContainer = new GenericContainer<>(CALCULATOR_SERVICE)
+        DockerImageName calculatorServiceImage = DockerImageName
+                .parse(calculatorServiceProperties.getImageName())
+                .asCompatibleSubstituteFor("calculator-service");
+
+        this.calculatorContainer = new GenericContainer<>(calculatorServiceImage)
                 .withExposedPorts(calculatorServiceProperties.getPort())
                 .withNetwork(networkService.getNetwork())
                 .withEnv(calculatorServiceProperties.getAdditionServiceUrlEnvName(),

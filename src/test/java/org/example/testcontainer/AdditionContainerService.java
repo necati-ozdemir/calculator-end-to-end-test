@@ -1,24 +1,26 @@
 package org.example.testcontainer;
 
 import org.example.config.AdditionServiceProperties;
+import org.example.testcontainer.network.INetworkService;
 import org.springframework.stereotype.Service;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.utility.DockerImageName;
 
 @Service
 public final class AdditionContainerService implements IContainerService {
-    private static final DockerImageName ADDITION_SERVICE = DockerImageName
-            .parse("mbarkin26/addition-service:latest")
-            .asCompatibleSubstituteFor("addition-service");
-
-    private final GenericContainer<?> additionContainer;
 
     private final Integer containerPort;
 
-    public AdditionContainerService(NetworkService networkService,
+    private final GenericContainer<?> additionContainer;
+
+    public AdditionContainerService(INetworkService networkService,
                                     AdditionServiceProperties additionServiceProperties) {
 
-        this.additionContainer = new GenericContainer<>(ADDITION_SERVICE)
+        DockerImageName additionServiceImage = DockerImageName
+                .parse(additionServiceProperties.getImageName())
+                .asCompatibleSubstituteFor("addition-service");
+
+        this.additionContainer = new GenericContainer<>(additionServiceImage)
                 .withExposedPorts(additionServiceProperties.getPort())
                 .withNetwork(networkService.getNetwork())
                 .withEnv("SERVER_PORT", additionServiceProperties.getPort().toString());

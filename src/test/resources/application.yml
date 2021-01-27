@@ -4,11 +4,13 @@ addition-service:
   ip: ${worker-ip}
   port: 8070
   api-path: /api/addition/calculate
+  image_name: mbarkin26/addition-service:latest
 
 subtraction-service:
   ip: ${worker-ip}
   port: 8071
   api-path: /api/subtraction/calculate
+  image_name: mbarkin26/subtraction-service:latest
 
 calculator-service:
   ip: ${worker-ip}
@@ -19,6 +21,7 @@ calculator-service:
   addition-service-url-env-value: http://${addition-service.ip}:<container_port>${addition-service.api-path}
   subtraction-service-url-env-name: CALCULATOR_SUBTRACTIONSERVICEURL
   subtraction-service-url-env-value: http://${subtraction-service.ip}:<container_port>${subtraction-service.api-path}
+  image_name: mbarkin26/calculator-service:latest
 
 
 calculator-ui:
@@ -34,3 +37,4 @@ calculator-ui:
   subtraction-button-element-id: subtractionButton
   result-value-element-id: resultValue
   result-message-element-id: resultMessage
+  image_name: mbarkin26/calculator-ui:0.0.1

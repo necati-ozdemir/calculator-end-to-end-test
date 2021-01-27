@@ -6,12 +6,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "addition-service")
 public class AdditionServiceProperties {
-    private String ip;
-    private Integer port;
-    private String apiPath;
 
-    public AdditionServiceProperties() {
-    }
+    private static final String DEFAULT_IP = "localhost";
+    private static final Integer DEFAULT_PORT = 8080;
+    private static final String DEFAULT_API_PATH = "/default/api/path";
+    private static final String DEFAULT_IMAGE_NAME = "default/image-name:latest";
+
+    private String ip = DEFAULT_IP;
+    private Integer port = DEFAULT_PORT;
+    private String apiPath = DEFAULT_API_PATH;
+    private String imageName = DEFAULT_IMAGE_NAME;
 
     public String getIp() {
         return ip;
@@ -35,5 +39,13 @@ public class AdditionServiceProperties {
 
     public void setApiPath(String apiPath) {
         this.apiPath = apiPath;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 }

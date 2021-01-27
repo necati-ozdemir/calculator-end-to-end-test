@@ -6,21 +6,34 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "calculator-ui")
 public class CalculatorUIProperties {
-    private String ip;
-    private Integer port;
-    private String calculatorServiceAdditionUrlEnvName;
-    private String calculatorServiceAdditionUrlEnvValue;
-    private String calculatorServiceSubtractionUrlEnvName;
-    private String calculatorServiceSubtractionUrlEnvValue;
-    private String firstValueElementId;
-    private String secondValueElementId;
-    private String additionButtonElementId;
-    private String subtractionButtonElementId;
-    private String resultValueElementId;
-    private String resultMessageElementId;
 
-    public CalculatorUIProperties() {
-    }
+    private static final String DEFAULT_IP = "localhost";
+    private static final Integer DEFAULT_PORT = 8080;
+    private static final String DEFAULT_IMAGE_NAME = "default/image-name:latest";
+    private static final String DEFAULT_CAL_SERVICE_ADD_URL_ENV_NAME = "DEFAULT_CAL_SERVICE_ADD_URL_ENV_NAME";
+    private static final String DEFAULT_CAL_SERVICE_ADD_URL_ENV_VALUE = "http://calculation-ip:8080/default/addition/api/path";
+    private static final String DEFAULT_CAL_SERVICE_SUB_URL_ENV_NAME = "DEFAULT_CAL_SERVICE_SUB_URL_ENV_NAME";
+    private static final String DEFAULT_CAL_SERVICE_SUB_URL_ENV_VALUE = "http://calculation-ip:8080/default/subtraction/api/path";
+    private static final String DEFAULT_FIRST_VALUE_ELEMENT_ID = "DEFAULT_FIRST_VALUE_ELEMENT_ID";
+    private static final String DEFAULT_SECOND_VALUE_ELEMENT_ID = "DEFAULT_SECOND_VALUE_ELEMENT_ID";
+    private static final String DEFAULT_ADDITION_BUTTON_ELEMENT_ID = "DEFAULT_ADDITION_BUTTON_ELEMENT_ID";
+    private static final String DEFAULT_SUBTRACTION_BUTTON_ELEMENT_ID = "DEFAULT_SUBTRACTION_BUTTON_ELEMENT_ID";
+    private static final String DEFAULT_RESULT_VALUE_ELEMENT_ID = "DEFAULT_RESULT_VALUE_ELEMENT_ID";
+    private static final String DEFAULT_RESULT_MESSAGE_ELEMENT_ID = "DEFAULT_RESULT_MESSAGE_ELEMENT_ID";
+
+    private String ip = DEFAULT_IP;
+    private Integer port = DEFAULT_PORT;
+    private String imageName = DEFAULT_IMAGE_NAME;
+    private String calculatorServiceAdditionUrlEnvName = DEFAULT_CAL_SERVICE_ADD_URL_ENV_NAME;
+    private String calculatorServiceAdditionUrlEnvValue = DEFAULT_CAL_SERVICE_ADD_URL_ENV_VALUE;
+    private String calculatorServiceSubtractionUrlEnvName = DEFAULT_CAL_SERVICE_SUB_URL_ENV_NAME;
+    private String calculatorServiceSubtractionUrlEnvValue = DEFAULT_CAL_SERVICE_SUB_URL_ENV_VALUE;
+    private String firstValueElementId = DEFAULT_FIRST_VALUE_ELEMENT_ID;
+    private String secondValueElementId = DEFAULT_SECOND_VALUE_ELEMENT_ID;
+    private String additionButtonElementId = DEFAULT_ADDITION_BUTTON_ELEMENT_ID;
+    private String subtractionButtonElementId = DEFAULT_SUBTRACTION_BUTTON_ELEMENT_ID;
+    private String resultValueElementId = DEFAULT_RESULT_VALUE_ELEMENT_ID;
+    private String resultMessageElementId = DEFAULT_RESULT_MESSAGE_ELEMENT_ID;
 
     public String getIp() {
         return ip;
@@ -116,5 +129,13 @@ public class CalculatorUIProperties {
 
     public void setResultMessageElementId(String resultMessageElementId) {
         this.resultMessageElementId = resultMessageElementId;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 }

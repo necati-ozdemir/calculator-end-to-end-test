@@ -65,12 +65,12 @@ public final class CalculatorHappyStepDefinitions {
     public void checkingResultNumber(String resultValue, String resultMessage) {
         this.seleniumDriverService.waitUntilElementValueIsFill(this.calculatorUIProperties.getResultValueElementId());
 
-        assertEquals(this.seleniumDriverService.getElementValueByElementId(
-                this.calculatorUIProperties.getResultValueElementId()),
+        assertEquals(
+                this.seleniumDriverService.getElementValueByElementId(this.calculatorUIProperties.getResultValueElementId()),
                 resultValue
         );
-        assertEquals(this.seleniumDriverService.getElementValueByElementId(
-                this.calculatorUIProperties.getResultMessageElementId()),
+        assertEquals(
+                this.seleniumDriverService.getElementValueByElementId(this.calculatorUIProperties.getResultMessageElementId()),
                 resultMessage
         );
     }
