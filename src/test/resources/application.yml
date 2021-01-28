@@ -1,4 +1,4 @@
-worker-ip: 10.150.21.212
+worker-ip: 10.150.17.73
 
 addition-service:
   ip: ${worker-ip}
