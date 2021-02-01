@@ -5,8 +5,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.springframework.stereotype.Service;
 import org.testcontainers.containers.BrowserWebDriverContainer;
 
-import java.io.File;
-
 @Service
 public final class SeleniumContainerService implements IContainerService {
 
@@ -17,7 +15,7 @@ public final class SeleniumContainerService implements IContainerService {
                 .withNetwork(networkService.getNetwork())
                 .withNetworkAliases("chrome")
                 .withCapabilities(DesiredCapabilities.chrome())
-                .withRecordingMode(BrowserWebDriverContainer.VncRecordingMode.RECORD_ALL, new File("./target/"));
+                .withRecordingMode(BrowserWebDriverContainer.VncRecordingMode.SKIP, null);
 
         this.chromeContainer.start();
     }
