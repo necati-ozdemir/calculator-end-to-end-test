@@ -1,11 +1,12 @@
 package org.example.testcontainer.recording;
 
-import org.example.testcontainer.SeleniumContainerService;
+import org.example.testcontainer.selenium.SeleniumContainerService;
 import org.testcontainers.containers.VncRecordingContainer;
 
 import java.io.File;
 
-public class VncRecordingContainerService implements IVncRecordingContainerService {
+public class VncRecordingContainerService implements IRecordingContainerService {
+
     private final VncRecordingContainer vnc;
 
     public VncRecordingContainerService(SeleniumContainerService seleniumContainerService) {

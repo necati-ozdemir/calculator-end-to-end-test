@@ -1,6 +1,7 @@
-package org.example.testcontainer;
+package org.example.testcontainer.calculator;
 
 import org.example.config.SubtractionServiceProperties;
+import org.example.testcontainer.IContainerService;
 import org.example.testcontainer.network.INetworkService;
 import org.springframework.stereotype.Service;
 import org.testcontainers.containers.GenericContainer;
@@ -30,10 +31,22 @@ public final class SubtractionContainerService implements IContainerService {
         this.containerPort = this.subtractionContainer.getMappedPort(subtractionServiceProperties.getPort());
     }
 
+    @Override
     public Integer getContainerPort() {
         return this.containerPort;
     }
 
+    @Override
+    public void startContainer() {
+        this.subtractionContainer.start();
+    }
+
+    @Override
+    public void stopContainer() {
+        this.subtractionContainer.stop();
+    }
+
+    @Override
     public void closeContainer() {
         this.subtractionContainer.close();
     }

@@ -1,6 +1,6 @@
 package org.example.selenium;
 
-import org.example.testcontainer.SeleniumContainerService;
+import org.example.testcontainer.selenium.SeleniumContainerService;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;

@@ -10,9 +10,10 @@ import io.cucumber.java.en.When;
 import org.example.config.CalculatorUIProperties;
 import org.example.model.CalculateType;
 import org.example.selenium.ISeleniumDriverService;
-import org.example.testcontainer.CalculatorUIContainerService;
-import org.example.testcontainer.SeleniumContainerService;
+import org.example.testcontainer.calculator.CalculatorUIContainerService;
+import org.example.testcontainer.recording.IRecordingContainerService;
 import org.example.testcontainer.recording.VncRecordingContainerService;
+import org.example.testcontainer.selenium.SeleniumContainerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
@@ -34,23 +35,23 @@ public final class CalculatorHappyStepDefinitions {
     @Autowired
     private CalculatorUIContainerService calculatorUIContainerService;
 
-    private final VncRecordingContainerService vncRecordingContainerService;
+    private final IRecordingContainerService recordingContainerService;
 
     public CalculatorHappyStepDefinitions(SeleniumContainerService seleniumContainerService) {
-        this.vncRecordingContainerService = new VncRecordingContainerService(seleniumContainerService);
+        this.recordingContainerService = new VncRecordingContainerService(seleniumContainerService);
     }
 
     @Before
     public void setUp(Scenario scenario) {
-        this.vncRecordingContainerService.startContainer();
+        this.recordingContainerService.startContainer();
     }
 
     @After
     public void tearDown(Scenario scenario) {
         String recordingFileName = scenario.getStatus() + "_" + String.join("_", scenario.getSourceTagNames());
 
-        this.vncRecordingContainerService.saveRecordingToFile(recordingFileName);
-        this.vncRecordingContainerService.stopContainer();
+        this.recordingContainerService.saveRecordingToFile(recordingFileName);
+        this.recordingContainerService.stopContainer();
     }
 
     @Given("The below numbers are given")
