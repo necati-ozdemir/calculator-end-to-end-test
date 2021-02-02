@@ -1,13 +1,12 @@
 package org.example.testcontainer.selenium;
 
-import org.example.testcontainer.IContainerService;
 import org.example.testcontainer.network.INetworkService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.springframework.stereotype.Service;
 import org.testcontainers.containers.BrowserWebDriverContainer;
 
 @Service
-public final class SeleniumContainerService implements IContainerService {
+public final class SeleniumContainerService implements ISeleniumContainerService {
 
     private final BrowserWebDriverContainer<?> chromeContainer;
 
@@ -41,6 +40,7 @@ public final class SeleniumContainerService implements IContainerService {
         this.chromeContainer.close();
     }
 
+    @Override
     public BrowserWebDriverContainer<?> getChromeContainer() {
         return chromeContainer;
     }

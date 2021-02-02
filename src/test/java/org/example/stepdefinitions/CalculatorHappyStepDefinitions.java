@@ -13,7 +13,7 @@ import org.example.selenium.ISeleniumDriverService;
 import org.example.testcontainer.calculator.CalculatorUIContainerService;
 import org.example.testcontainer.recording.IRecordingContainerService;
 import org.example.testcontainer.recording.VncRecordingContainerService;
-import org.example.testcontainer.selenium.SeleniumContainerService;
+import org.example.testcontainer.selenium.ISeleniumContainerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
@@ -37,13 +37,15 @@ public final class CalculatorHappyStepDefinitions {
 
     private final IRecordingContainerService recordingContainerService;
 
-    public CalculatorHappyStepDefinitions(SeleniumContainerService seleniumContainerService) {
+    public CalculatorHappyStepDefinitions(ISeleniumContainerService seleniumContainerService) {
         this.recordingContainerService = new VncRecordingContainerService(seleniumContainerService);
     }
 
     @Before
     public void setUp(Scenario scenario) {
         this.recordingContainerService.startContainer();
+
+        this.seleniumDriverService.getUrlInDriver(this.calculatorUIContainerService.getUrl());
     }
 
     @After
@@ -59,8 +61,6 @@ public final class CalculatorHappyStepDefinitions {
         List<List<String>> givenList = dataTable.asLists(String.class);
         String firstValue = givenList.get(1).get(0);
         String secondValue = givenList.get(1).get(1);
-
-        this.seleniumDriverService.getUrlInDriver(this.calculatorUIContainerService.getUrl());
 
         this.seleniumDriverService.setElementValueByElementId(
                 this.calculatorUIProperties.getFirstValueElementId(),
@@ -102,7 +102,6 @@ public final class CalculatorHappyStepDefinitions {
 
     @Given("Numbers are given {} and {}")
     public void numbersAreGivenAnd(String first, String secondValue) {
-        this.seleniumDriverService.getUrlInDriver(this.calculatorUIContainerService.getUrl());
 
         this.seleniumDriverService.setElementValueByElementId(
                 this.calculatorUIProperties.getFirstValueElementId(),
