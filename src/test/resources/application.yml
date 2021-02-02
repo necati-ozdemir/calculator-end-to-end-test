@@ -1,40 +1,14 @@
-worker-ip: 10.150.17.73
-
-addition-service:
-  ip: ${worker-ip}
-  port: 8070
-  api-path: /api/addition/calculate
-  image_name: mbarkin26/addition-service:latest
-
-subtraction-service:
-  ip: ${worker-ip}
-  port: 8071
-  api-path: /api/subtraction/calculate
-  image_name: mbarkin26/subtraction-service:latest
-
-calculator-service:
-  ip: ${worker-ip}
-  port: 8072
-  addition-api-path: /calculator/addition
-  subtraction-api-path: /calculator/subtraction
-  addition-service-url-env-name: CALCULATOR_ADDITIONSERVICEURL
-  addition-service-url-env-value: http://${addition-service.ip}:<container_port>${addition-service.api-path}
-  subtraction-service-url-env-name: CALCULATOR_SUBTRACTIONSERVICEURL
-  subtraction-service-url-env-value: http://${subtraction-service.ip}:<container_port>${subtraction-service.api-path}
-  image_name: mbarkin26/calculator-service:latest
-
+compose:
+  worker-ip: 10.150.21.212
+  path: src/test/resources/compose/docker-compose.yml
 
 calculator-ui:
-  ip: ${worker-ip}
+  ip: ${compose.worker-ip}
   port: 8073
-  calculator-service-addition-url-env-name: REACT_APP_CALCULATOR_SERVICE_ADDITION_URL
-  calculator-service-addition-url-env-value: http://${calculator-service.ip}:<container_port>${calculator-service.addition-api-path}
-  calculator-service-subtraction-url-env-name: REACT_APP_CALCULATOR_SERVICE_SUBTRACTION_URL
-  calculator-service-subtraction-url-env-value: http://${calculator-service.ip}:<container_port>${calculator-service.subtraction-api-path}
+  hostname: calculator-ui
   first-value-element-id: firstValue
   second-value-element-id: secondValue
   addition-button-element-id: additionButton
   subtraction-button-element-id: subtractionButton
   result-value-element-id: resultValue
   result-message-element-id: resultMessage
-  image_name: mbarkin26/calculator-ui:0.0.1

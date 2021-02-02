@@ -1,6 +1,6 @@
 package org.example.selenium;
 
-import org.example.testcontainer.selenium.SeleniumContainerService;
+import org.example.testcontainer.selenium.ISeleniumContainerService;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -15,7 +15,7 @@ public final class SeleniumDriverService implements ISeleniumDriverService {
     private final WebDriverWait wait;
     private final RemoteWebDriver chromeDriver;
 
-    public SeleniumDriverService(SeleniumContainerService seleniumContainerService) {
+    public SeleniumDriverService(ISeleniumContainerService seleniumContainerService) {
 
         this.chromeDriver = seleniumContainerService.getChromeContainer().getWebDriver();
         this.chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

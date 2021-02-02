@@ -9,11 +9,7 @@ public class CalculatorUIProperties {
 
     private static final String DEFAULT_IP = "localhost";
     private static final Integer DEFAULT_PORT = 8080;
-    private static final String DEFAULT_IMAGE_NAME = "default/image-name:latest";
-    private static final String DEFAULT_CAL_SERVICE_ADD_URL_ENV_NAME = "DEFAULT_CAL_SERVICE_ADD_URL_ENV_NAME";
-    private static final String DEFAULT_CAL_SERVICE_ADD_URL_ENV_VALUE = "http://calculation-ip:8080/default/addition/api/path";
-    private static final String DEFAULT_CAL_SERVICE_SUB_URL_ENV_NAME = "DEFAULT_CAL_SERVICE_SUB_URL_ENV_NAME";
-    private static final String DEFAULT_CAL_SERVICE_SUB_URL_ENV_VALUE = "http://calculation-ip:8080/default/subtraction/api/path";
+    private static final String DEFAULT_HOSTNAME = "default-calculator-ui";
     private static final String DEFAULT_FIRST_VALUE_ELEMENT_ID = "DEFAULT_FIRST_VALUE_ELEMENT_ID";
     private static final String DEFAULT_SECOND_VALUE_ELEMENT_ID = "DEFAULT_SECOND_VALUE_ELEMENT_ID";
     private static final String DEFAULT_ADDITION_BUTTON_ELEMENT_ID = "DEFAULT_ADDITION_BUTTON_ELEMENT_ID";
@@ -23,11 +19,7 @@ public class CalculatorUIProperties {
 
     private String ip = DEFAULT_IP;
     private Integer port = DEFAULT_PORT;
-    private String imageName = DEFAULT_IMAGE_NAME;
-    private String calculatorServiceAdditionUrlEnvName = DEFAULT_CAL_SERVICE_ADD_URL_ENV_NAME;
-    private String calculatorServiceAdditionUrlEnvValue = DEFAULT_CAL_SERVICE_ADD_URL_ENV_VALUE;
-    private String calculatorServiceSubtractionUrlEnvName = DEFAULT_CAL_SERVICE_SUB_URL_ENV_NAME;
-    private String calculatorServiceSubtractionUrlEnvValue = DEFAULT_CAL_SERVICE_SUB_URL_ENV_VALUE;
+    private String hostname = DEFAULT_HOSTNAME;
     private String firstValueElementId = DEFAULT_FIRST_VALUE_ELEMENT_ID;
     private String secondValueElementId = DEFAULT_SECOND_VALUE_ELEMENT_ID;
     private String additionButtonElementId = DEFAULT_ADDITION_BUTTON_ELEMENT_ID;
@@ -49,38 +41,6 @@ public class CalculatorUIProperties {
 
     public void setPort(Integer port) {
         this.port = port;
-    }
-
-    public String getCalculatorServiceAdditionUrlEnvName() {
-        return calculatorServiceAdditionUrlEnvName;
-    }
-
-    public void setCalculatorServiceAdditionUrlEnvName(String calculatorServiceAdditionUrlEnvName) {
-        this.calculatorServiceAdditionUrlEnvName = calculatorServiceAdditionUrlEnvName;
-    }
-
-    public String getCalculatorServiceAdditionUrlEnvValue() {
-        return calculatorServiceAdditionUrlEnvValue;
-    }
-
-    public void setCalculatorServiceAdditionUrlEnvValue(String calculatorServiceAdditionUrlEnvValue) {
-        this.calculatorServiceAdditionUrlEnvValue = calculatorServiceAdditionUrlEnvValue;
-    }
-
-    public String getCalculatorServiceSubtractionUrlEnvName() {
-        return calculatorServiceSubtractionUrlEnvName;
-    }
-
-    public void setCalculatorServiceSubtractionUrlEnvName(String calculatorServiceSubtractionUrlEnvName) {
-        this.calculatorServiceSubtractionUrlEnvName = calculatorServiceSubtractionUrlEnvName;
-    }
-
-    public String getCalculatorServiceSubtractionUrlEnvValue() {
-        return calculatorServiceSubtractionUrlEnvValue;
-    }
-
-    public void setCalculatorServiceSubtractionUrlEnvValue(String calculatorServiceSubtractionUrlEnvValue) {
-        this.calculatorServiceSubtractionUrlEnvValue = calculatorServiceSubtractionUrlEnvValue;
     }
 
     public String getFirstValueElementId() {
@@ -131,11 +91,15 @@ public class CalculatorUIProperties {
         this.resultMessageElementId = resultMessageElementId;
     }
 
-    public String getImageName() {
-        return imageName;
+    public String getUrl() {
+        return "http://" + this.ip + ":" + this.port;
     }
 
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
+    public String getHostname() {
+        return hostname;
+    }
+
+    public void setHostname(String hostname) {
+        this.hostname = hostname;
     }
 }

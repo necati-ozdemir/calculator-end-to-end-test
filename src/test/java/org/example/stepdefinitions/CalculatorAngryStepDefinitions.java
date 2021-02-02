@@ -9,10 +9,9 @@ import io.cucumber.java.en.When;
 import org.example.config.CalculatorUIProperties;
 import org.example.model.CalculateType;
 import org.example.selenium.ISeleniumDriverService;
-import org.example.testcontainer.calculator.CalculatorUIContainerService;
 import org.example.testcontainer.recording.IRecordingContainerService;
 import org.example.testcontainer.recording.VncRecordingContainerService;
-import org.example.testcontainer.selenium.SeleniumContainerService;
+import org.example.testcontainer.selenium.ISeleniumContainerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
@@ -29,18 +28,17 @@ public final class CalculatorAngryStepDefinitions {
     @Autowired
     private CalculatorUIProperties calculatorUIProperties;
 
-    @Autowired
-    private CalculatorUIContainerService calculatorUIContainerService;
-
     private final IRecordingContainerService recordingContainerService;
 
-    public CalculatorAngryStepDefinitions(SeleniumContainerService seleniumContainerService) {
+    public CalculatorAngryStepDefinitions(ISeleniumContainerService seleniumContainerService) {
         this.recordingContainerService = new VncRecordingContainerService(seleniumContainerService);
     }
 
     @Before
     public void setUp(Scenario scenario) {
         this.recordingContainerService.startContainer();
+
+        this.seleniumDriverService.getUrlInDriver(this.calculatorUIProperties.getUrl());
     }
 
     @After
@@ -53,7 +51,6 @@ public final class CalculatorAngryStepDefinitions {
 
     @Given("Either of any value is not given")
     public void givenNumbers() {
-        this.seleniumDriverService.getUrlInDriver(this.calculatorUIContainerService.getUrl());
 
         this.seleniumDriverService.setElementValueByElementId(
                 this.calculatorUIProperties.getFirstValueElementId(),

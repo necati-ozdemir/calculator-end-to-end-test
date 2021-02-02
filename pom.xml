@@ -19,7 +19,7 @@
         <jib-plugin.version>2.1.0</jib-plugin.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <testcontainers.version>1.15.0-rc2</testcontainers.version>
+        <testcontainers.version>1.15.1</testcontainers.version>
         <encoding>UTF-8</encoding>
     </properties>
 
