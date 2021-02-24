@@ -8,7 +8,7 @@ calculator-ui:
   hostname: calculator-ui
   first-value-element-id: firstValue
   second-value-element-id: secondValue
-  addition-button-element-id: additionButton
-  subtraction-button-element-id: subtractionButton
+  calculation-select-element-id: calculationSelect
+  calculation-button-element-id: calculationButton
   result-value-element-id: resultValue
   result-message-element-id: resultMessage

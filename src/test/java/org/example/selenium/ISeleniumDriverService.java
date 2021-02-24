@@ -5,6 +5,8 @@ public interface ISeleniumDriverService {
 
     void clickButtonByElementId(String elementId);
 
+    void selectOptionByElementId(String elementId, String option);
+
     void setElementValueByElementId(String elementId, String value);
 
     void waitUntilElementValueIsFill(String elementId);

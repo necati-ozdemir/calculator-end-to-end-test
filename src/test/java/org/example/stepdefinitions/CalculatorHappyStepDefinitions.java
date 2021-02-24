@@ -70,16 +70,15 @@ public final class CalculatorHappyStepDefinitions {
 
     @When("Barkın wants to perform {} those two numbers")
     public void calculateNumbers(CalculateType calculateType) {
-        switch (calculateType) {
-            case ADDITION:
-                this.seleniumDriverService.clickButtonByElementId(this.calculatorUIProperties.getAdditionButtonElementId());
-                break;
-            case SUBTRACTION:
-                this.seleniumDriverService.clickButtonByElementId(this.calculatorUIProperties.getSubtractionButtonElementId());
-                break;
-            default:
-                throw new UnsupportedOperationException("Calculate Type is unsupported operation: " + calculateType.name());
-        }
+
+        this.seleniumDriverService.selectOptionByElementId(
+                this.calculatorUIProperties.getCalculationSelectElementId(),
+                calculateType.name()
+        );
+
+        this.seleniumDriverService.clickButtonByElementId(
+                this.calculatorUIProperties.getCalculationButtonElementId()
+        );
     }
 
     @Then("Barkın should see result {} and {} message")

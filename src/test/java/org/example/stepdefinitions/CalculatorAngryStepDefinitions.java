@@ -60,16 +60,15 @@ public final class CalculatorAngryStepDefinitions {
 
     @When("Necati wants to perform {} operation")
     public void calculateNumbers(CalculateType calculateType) {
-        switch (calculateType) {
-            case ADDITION:
-                this.seleniumDriverService.clickButtonByElementId(this.calculatorUIProperties.getAdditionButtonElementId());
-                break;
-            case SUBTRACTION:
-                this.seleniumDriverService.clickButtonByElementId(this.calculatorUIProperties.getSubtractionButtonElementId());
-                break;
-            default:
-                throw new UnsupportedOperationException("Calculate Type is unsupported operation: " + calculateType.name());
-        }
+
+        this.seleniumDriverService.selectOptionByElementId(
+                this.calculatorUIProperties.getCalculationSelectElementId(),
+                calculateType.name()
+        );
+
+        this.seleniumDriverService.clickButtonByElementId(
+                this.calculatorUIProperties.getCalculationButtonElementId()
+        );
     }
 
     @Then("Necati should see a warning notification")

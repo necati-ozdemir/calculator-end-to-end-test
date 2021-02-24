@@ -34,7 +34,7 @@ services:
 
   calculator-ui:
     hostname: calculator-ui
-    image: mbarkin26/calculator-ui:0.0.1
+    image: mbarkin26/calculator-ui:0.0.3
     ports:
       - "8073:8073"
     environment:

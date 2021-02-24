@@ -34,6 +34,12 @@ public final class SeleniumDriverService implements ISeleniumDriverService {
     }
 
     @Override
+    public void selectOptionByElementId(String elementId, String option) {
+        this.chromeDriver.findElementById(elementId).click();
+        this.chromeDriver.findElementById(option).click();
+    }
+
+    @Override
     public void setElementValueByElementId(String elementId, String value) {
         this.chromeDriver.findElementById(elementId).sendKeys(value);
     }
