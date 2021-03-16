@@ -1,5 +1,5 @@
 compose:
-  worker-ip: 10.150.21.212
+  worker-ip: 10.150.17.73
   path: src/test/resources/compose/docker-compose.yml
 
 calculator-ui:
