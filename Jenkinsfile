@@ -3,6 +3,7 @@ node {
         def dockerHome = tool 'docker'
         def mavenHome = tool 'maven'
         //env.PATH = "${dockerHome}/bin:${mavenHome}/bin:${env.PATH}"
+	env.PATH = "${mavenHome}/bin:${env.PATH}"
         env.BUILD_TIME = sh(returnStdout: true, script: 'date +%F-%T').trim()
         env.WORKSPACE_LOCAL = sh(returnStdout: true, script: 'pwd').trim()
     }
@@ -13,7 +14,7 @@ node {
 
     stage('Build') {
         sh 'uname -a'
-        sh 'maven clean install'
+        sh 'mvn clean install'
     }
 
     stage('Expose report') {
