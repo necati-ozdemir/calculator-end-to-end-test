@@ -13,7 +13,7 @@ node {
 
     stage('Build') {
         sh 'uname -a'
-        sh 'mvn clean install'
+        sh 'maven clean install'
     }
 
     stage('Expose report') {
