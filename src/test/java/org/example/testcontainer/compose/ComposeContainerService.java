@@ -19,6 +19,7 @@ public final class ComposeContainerService implements IContainerService {
                                    CalculatorUIProperties calculatorUIProperties) {
         this.composeContainer = new DockerComposeContainer<>(new File(composeProperties.getPath()))
                 .withEnv("WORKER_IP", composeProperties.getWorkerIp())
+                .withLocalCompose(true)
                 .withExposedService(
                         calculatorUIProperties.getHostname(),
                         calculatorUIProperties.getPort(),
