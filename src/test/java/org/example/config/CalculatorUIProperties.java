@@ -12,6 +12,8 @@ public class CalculatorUIProperties {
     private static final String DEFAULT_HOSTNAME = "default-calculator-ui";
     private static final String DEFAULT_FIRST_VALUE_ELEMENT_ID = "DEFAULT_FIRST_VALUE_ELEMENT_ID";
     private static final String DEFAULT_SECOND_VALUE_ELEMENT_ID = "DEFAULT_SECOND_VALUE_ELEMENT_ID";
+    private static final String DEFAULT_FIRST_VALUE_ELEMENT_XPATH = "DEFAULT_FIRST_VALUE_ELEMENT_XPATH";
+    private static final String DEFAULT_SECOND_VALUE_ELEMENT_XPATH = "DEFAULT_SECOND_VALUE_ELEMENT_XPATH";
     private static final String DEFAULT_CALCULATION_SELECT_ELEMENT_ID = "DEFAULT_CALCULATION_SELECT_ELEMENT_ID";
     private static final String DEFAULT_CALCULATION_BUTTON_ELEMENT_ID = "DEFAULT_CALCULATION_BUTTON_ELEMENT_ID";
     private static final String DEFAULT_RESULT_VALUE_ELEMENT_ID = "DEFAULT_RESULT_VALUE_ELEMENT_ID";
@@ -22,6 +24,8 @@ public class CalculatorUIProperties {
     private String hostname = DEFAULT_HOSTNAME;
     private String firstValueElementId = DEFAULT_FIRST_VALUE_ELEMENT_ID;
     private String secondValueElementId = DEFAULT_SECOND_VALUE_ELEMENT_ID;
+    private String firstValueElementXPath = DEFAULT_FIRST_VALUE_ELEMENT_XPATH;
+    private String secondValueElementXPath = DEFAULT_SECOND_VALUE_ELEMENT_XPATH;
     private String calculationSelectElementId = DEFAULT_CALCULATION_SELECT_ELEMENT_ID;
     private String calculationButtonElementId = DEFAULT_CALCULATION_BUTTON_ELEMENT_ID;
     private String resultValueElementId = DEFAULT_RESULT_VALUE_ELEMENT_ID;
@@ -101,5 +105,21 @@ public class CalculatorUIProperties {
 
     public void setHostname(String hostname) {
         this.hostname = hostname;
+    }
+
+    public String getFirstValueElementXPath() {
+        return firstValueElementXPath;
+    }
+
+    public void setFirstValueElementXPath(String firstValueElementXPath) {
+        this.firstValueElementXPath = firstValueElementXPath;
+    }
+
+    public String getSecondValueElementXPath() {
+        return secondValueElementXPath;
+    }
+
+    public void setSecondValueElementXPath(String secondValueElementXPath) {
+        this.secondValueElementXPath = secondValueElementXPath;
     }
 }

@@ -81,4 +81,27 @@ public final class CalculatorAngryStepDefinitions {
                 "FAIL"
         );
     }
+
+    @Given("the first value is {} and second value is {}")
+    public void theFirstValueIsAndSecondValueIs(String arg0, String arg1) {
+        this.seleniumDriverService.setElementValueByElementId(this.calculatorUIProperties.getFirstValueElementId(), arg0);
+        this.seleniumDriverService.setElementValueByElementId(this.calculatorUIProperties.getSecondValueElementId(), arg1);
+    }
+
+    @When("Murat wants to apply {} on those two numbers")
+    public void muratWantsToApplyDIVISIONOnThoseTwoNumbers(CalculateType calculateType) {
+        this.seleniumDriverService.selectOptionByElementId(this.calculatorUIProperties
+                .getCalculationSelectElementId(), calculateType.name());
+        this.seleniumDriverService.clickButtonByElementId(this.calculatorUIProperties.getCalculationButtonElementId());
+    }
+
+    @Then("Murat should see a fail message")
+    public void muratShouldSeeAFailMessage() {
+        this.seleniumDriverService.waitUntilElementValueIsFill(this.calculatorUIProperties.getResultMessageElementId());
+        assertEquals(this.seleniumDriverService.
+                getElementValueByElementId(this.calculatorUIProperties.getResultMessageElementId()), "FAILED: Division with 0");
+
+        assertEquals(this.seleniumDriverService.
+                getElementValueByElementId(this.calculatorUIProperties.getResultValueElementId()), "-1");
+    }
 }

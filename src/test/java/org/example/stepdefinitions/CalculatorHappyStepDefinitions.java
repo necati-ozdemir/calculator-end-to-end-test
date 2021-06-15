@@ -97,7 +97,7 @@ public final class CalculatorHappyStepDefinitions {
 
     @Given("Numbers are given {} and {}")
     public void numbersAreGivenAnd(String first, String secondValue) {
-        this.seleniumDriverService.getUrlInDriver(this.calculatorUIProperties.getUrl());
+//        this.seleniumDriverService.getUrlInDriver(this.calculatorUIProperties.getUrl());
 
         this.seleniumDriverService.setElementValueByElementId(
                 this.calculatorUIProperties.getFirstValueElementId(),

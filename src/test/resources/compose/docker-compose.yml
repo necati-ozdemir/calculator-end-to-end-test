@@ -19,14 +19,23 @@ services:
     environment:
       SERVER_PORT: 8071
 
+  division-service:
+    hostname: division-service
+    image: registry.hub.docker.com/division-service:latest
+    ports:
+      - "8074:8074"
+    environment:
+      SERVER_PORT: 8074
+
   calculator-service:
     hostname: calculator-service
-    image: mbarkin26/calculator-service:latest
+    image: registry.hub.docker.com/calculator-service:1.0-MURAT
     ports:
       - "8072:8072"
     environment:
       CALCULATOR_ADDITIONSERVICEURL: http://${WORKER_IP}:8070/api/addition/calculate
       CALCULATOR_SUBTRACTIONSERVICEURL: http://${WORKER_IP}:8071/api/subtraction/calculate
+      CALCULATOR_DIVISIONSERVICEURL: http://${WORKER_IP}:8074/api/division/calculate
       SERVER_PORT: 8072
     depends_on:
       - addition-service
@@ -34,7 +43,7 @@ services:
 
   calculator-ui:
     hostname: calculator-ui
-    image: mbarkin26/calculator-ui:0.0.3
+    image: calculator-ui-division:latest
     ports:
       - "8073:8073"
     environment:

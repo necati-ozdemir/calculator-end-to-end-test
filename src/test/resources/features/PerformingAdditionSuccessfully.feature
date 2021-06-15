@@ -6,5 +6,5 @@ Ability: Student could succeed at ADDITION operation
     Given The below numbers are given
       | firstValue | secondValue |
       | 6          | 8           |
-     When Barkın wants to perform ADDITION those two numbers
-     Then Barkın should see result 14 and SUCCESS message
+    When Barkın wants to perform ADDITION those two numbers
+    Then Barkın should see result 14 and SUCCESS message
