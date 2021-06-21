@@ -19,23 +19,32 @@ services:
     environment:
       SERVER_PORT: 8071
 
-  division-service:
-    hostname: division-service
-    image: registry.hub.docker.com/division-service:latest
+#  division-service:
+#    hostname: division-service
+#    image: registry.hub.docker.com/division-service:latest
+#    ports:
+#      - "8074:8074"
+#    environment:
+#      SERVER_PORT: 8074
+
+  multiplication-service:
+    hostname: multiplication-service
+    image: registry.hub.docker.com/multiplication-service:latest
     ports:
-      - "8074:8074"
+      - "8075:8075"
     environment:
-      SERVER_PORT: 8074
+      SERVER_PORT: 8075
 
   calculator-service:
     hostname: calculator-service
-    image: registry.hub.docker.com/calculator-service:1.0-MURAT
+    image: registry.hub.docker.com/calculator-service:latest
     ports:
       - "8072:8072"
     environment:
       CALCULATOR_ADDITIONSERVICEURL: http://${WORKER_IP}:8070/api/addition/calculate
       CALCULATOR_SUBTRACTIONSERVICEURL: http://${WORKER_IP}:8071/api/subtraction/calculate
       CALCULATOR_DIVISIONSERVICEURL: http://${WORKER_IP}:8074/api/division/calculate
+      CALCULATOR_MULTIPLICATIONSERVICEURL: http://${WORKER_IP}:8075/api/multiplication/calculate
       SERVER_PORT: 8072
     depends_on:
       - addition-service
@@ -43,12 +52,14 @@ services:
 
   calculator-ui:
     hostname: calculator-ui
-    image: calculator-ui-division:latest
+    image: calculator-ui:latest
     ports:
       - "8073:8073"
     environment:
       REACT_APP_CALCULATOR_SERVICE_ADDITION_URL: http://${WORKER_IP}:8072/calculator/addition
       REACT_APP_CALCULATOR_SERVICE_SUBTRACTION_URL: http://${WORKER_IP}:8072/calculator/subtraction
+      REACT_APP_CALCULATOR_SERVICE_DIVISION_URL: http://${WORKER_IP}:8072/calculator/division
+      REACT_APP_CALCULATOR_SERVICE_MULTIPLICATION_URL: http://${WORKER_IP}:8072/calculator/multiplication
       PORT: 8073
     depends_on:
       - calculator-service

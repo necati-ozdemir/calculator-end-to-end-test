@@ -17,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ContextConfiguration
@@ -103,5 +104,23 @@ public final class CalculatorAngryStepDefinitions {
 
         assertEquals(this.seleniumDriverService.
                 getElementValueByElementId(this.calculatorUIProperties.getResultValueElementId()), "-1");
+    }
+
+    @When("Zumrut wants to apply {} on those two numbers")
+    public void zumrutWantsToApplyMULTIPLICATIONOnThoseTwoNumbers(CalculateType calculateType) {
+        this.seleniumDriverService.selectOptionByElementId(this.calculatorUIProperties
+                .getCalculationSelectElementId(), calculateType.name());
+        this.seleniumDriverService.clickButtonByElementId(this.calculatorUIProperties.getCalculationButtonElementId());
+    }
+
+    @Then("Zumrut should see a fail message")
+    public void zumrutShouldSeeAFailMessage() {
+        this.seleniumDriverService.waitUntilElementValueIsFill(this.calculatorUIProperties.getResultMessageElementId());
+        assertThat(this.seleniumDriverService.
+                getElementValueByElementId(this.calculatorUIProperties.getResultMessageElementId()))
+                .startsWith("FAIL: ");
+
+        assertEquals(this.seleniumDriverService.
+                getElementValueByElementId(this.calculatorUIProperties.getResultValueElementId()), "");
     }
 }

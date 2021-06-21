@@ -108,4 +108,30 @@ public final class CalculatorHappyStepDefinitions {
                 secondValue
         );
     }
+
+    @When("Zumrut wants to perform {} those two numbers")
+    public void zumrutWantsToPerformMULTIPLICATIONThoseTwoNumbers(CalculateType calculateType) {
+        this.seleniumDriverService.selectOptionByElementId(
+                this.calculatorUIProperties.getCalculationSelectElementId(),
+                calculateType.name()
+        );
+
+        this.seleniumDriverService.clickButtonByElementId(
+                this.calculatorUIProperties.getCalculationButtonElementId()
+        );
+    }
+
+    @Then("Zumrut should see result {} and {} message")
+    public void zumrutShouldSeeResultResultAndResultMessageMessage(String resultValue, String resultMessage) {
+        this.seleniumDriverService.waitUntilElementValueIsFill(this.calculatorUIProperties.getResultValueElementId());
+
+        assertEquals(
+                this.seleniumDriverService.getElementValueByElementId(this.calculatorUIProperties.getResultValueElementId()),
+                resultValue
+        );
+        assertEquals(
+                this.seleniumDriverService.getElementValueByElementId(this.calculatorUIProperties.getResultMessageElementId()),
+                resultMessage
+        );
+    }
 }
