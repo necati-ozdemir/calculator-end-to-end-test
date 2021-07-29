@@ -1,6 +1,17 @@
+spring:
+  config:
+    additional-location: classpath:serenity.conf
+
 compose:
-  worker-ip: 10.150.17.73
+  worker-ip: 10.150.17.141
   path: src/test/resources/compose/docker-compose.yml
+
+selenium:
+  grid4:
+    url: "http://${calculator-ui.ip}:4444/wd/hub"
+
+application:
+  url1: "http://${calculator-ui.ip}:${calculator-ui.port}"
 
 calculator-ui:
   ip: ${compose.worker-ip}

@@ -5,15 +5,15 @@ Ability: Student could succeed at SUBTRACTION operation
 
     Given The below numbers are given
       | firstValue | secondValue |
-      | 6          | 8           |
+      | 9          | 8           |
      When Barkın wants to perform SUBTRACTION those two numbers
-     Then Barkın should see result -2 and SUCCESS message
+     Then Barkın should see result 1 and SUCCESS message
 
   @CAL-20
   Scenario: Valid another two numbers are supplied
 
     Given The below numbers are given
       | firstValue | secondValue |
-      | 6          | 3           |
+      | 8          | 3           |
     When Barkın wants to perform SUBTRACTION those two numbers
-    Then Barkın should see result 3 and SUCCESS message
+    Then Barkın should see result 5 and SUCCESS message

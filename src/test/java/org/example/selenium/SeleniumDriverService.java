@@ -2,14 +2,16 @@ package org.example.selenium;
 
 import org.example.testcontainer.selenium.ISeleniumContainerService;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-@Service
+//@Service
 public final class SeleniumDriverService implements ISeleniumDriverService {
 
     private final WebDriverWait wait;
@@ -21,6 +23,11 @@ public final class SeleniumDriverService implements ISeleniumDriverService {
         this.chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         this.wait = new WebDriverWait(this.chromeDriver, 3);// waits max of 3 sec
+    }
+
+    @Bean
+    public WebDriver webDriver() {
+        return this.chromeDriver;
     }
 
     @Override

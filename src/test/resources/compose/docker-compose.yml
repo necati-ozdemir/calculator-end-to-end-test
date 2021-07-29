@@ -27,17 +27,17 @@ services:
 #    environment:
 #      SERVER_PORT: 8074
 
-  multiplication-service:
-    hostname: multiplication-service
-    image: registry.hub.docker.com/multiplication-service:latest
-    ports:
-      - "8075:8075"
-    environment:
-      SERVER_PORT: 8075
+#  multiplication-service:
+#    hostname: multiplication-service
+#    image: mbarkin26/multiplication-service:latest
+#    ports:
+#      - "8075:8075"
+#    environment:
+#      SERVER_PORT: 8075
 
   calculator-service:
     hostname: calculator-service
-    image: registry.hub.docker.com/calculator-service:latest
+    image: mbarkin26/calculator-service:latest
     ports:
       - "8072:8072"
     environment:
@@ -52,7 +52,7 @@ services:
 
   calculator-ui:
     hostname: calculator-ui
-    image: calculator-ui:latest
+    image: mbarkin26/calculator-ui:0.0.3
     ports:
       - "8073:8073"
     environment:

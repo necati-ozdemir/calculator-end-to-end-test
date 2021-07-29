@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.testcontainers.containers.BrowserWebDriverContainer;
 import org.testcontainers.containers.Network;
 
-@Service
+//@Service
 public final class SeleniumContainerService implements ISeleniumContainerService {
 
     private final BrowserWebDriverContainer<?> chromeContainer;
