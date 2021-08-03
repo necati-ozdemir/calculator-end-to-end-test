@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @CucumberContextConfiguration
 @CucumberOptions(
         plugin = {"pretty", "json:target/cucumber.json"},
-        features = "classpath:features"
+        features = "classpath:features/calculator"
 )
 @SpringBootTest
 public class EndToEndTest {

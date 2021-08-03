@@ -19,17 +19,17 @@ services:
     environment:
       SERVER_PORT: 8071
 
-#  division-service:
-#    hostname: division-service
-#    image: registry.hub.docker.com/division-service:latest
-#    ports:
-#      - "8074:8074"
-#    environment:
-#      SERVER_PORT: 8074
+  division-service:
+    hostname: division-service
+    image: nozdemir/division-service:latest
+    ports:
+      - "8074:8074"
+    environment:
+      SERVER_PORT: 8074
 
   multiplication-service:
     hostname: multiplication-service
-    image: registry.hub.docker.com/multiplication-service:latest
+    image: nozdemir/multiplication-service:latest
     ports:
       - "8075:8075"
     environment:
@@ -37,7 +37,7 @@ services:
 
   calculator-service:
     hostname: calculator-service
-    image: registry.hub.docker.com/calculator-service:latest
+    image: nozdemir/calculator-service:latest
     ports:
       - "8072:8072"
     environment:
@@ -52,7 +52,7 @@ services:
 
   calculator-ui:
     hostname: calculator-ui
-    image: calculator-ui:latest
+    image: nozdemir/calculator-ui:latest
     ports:
       - "8073:8073"
     environment:
