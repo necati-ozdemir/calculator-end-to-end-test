@@ -186,13 +186,64 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.0.0-M5</version>
+                <configuration>
+                    <includes>
+                        <include>**/EndToEndTest.java</include>
+                    </includes>
+                    <systemPropertyVariables>
+                        <webdriver.base.url>${webdriver.base.url}</webdriver.base.url>
+                    </systemPropertyVariables>
+                    <!-- Parallel execution in the same JVM -->
+                    <parallel>all</parallel>
+                    <threadCount>4</threadCount>
+                    <perCoreThreadCount>true</perCoreThreadCount>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>com.github.temyers</groupId>-->
+            <!--                <artifactId>cucumber-jvm-parallel-plugin</artifactId>-->
+            <!--                <version>5.0.0</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>generateRunners</id>-->
+            <!--                        <phase>generate-test-sources</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>generateRunners</goal>-->
+            <!--                        </goals>-->
+            <!--                        <configuration>-->
+            <!--                            &lt;!&ndash; Mandatory &ndash;&gt;-->
+            <!--                            &lt;!&ndash; List of package names to scan for glue code. &ndash;&gt;-->
+            <!--                            <glue>-->
+            <!--                                <package>org.example.stepdefinitions</package>-->
+            <!--                            </glue>-->
+            <!--                            <parallelScheme>FEATURE</parallelScheme>-->
+            <!--                            <customVmTemplate>src/test/resources/cucumber-serenity-runner.vm</customVmTemplate>-->
+            <!--                        </configuration>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M3</version>
-<!--                <configuration>-->
-<!--                    <parallel>methods</parallel>-->
-<!--                    <threadCount>4</threadCount>-->
-<!--&lt;!&ndash;                    <perCoreThreadCount>false</perCoreThreadCount>&ndash;&gt;-->
-<!--                </configuration>-->
+                <executions>
+                    <execution>
+                        <id>default-test</id>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>

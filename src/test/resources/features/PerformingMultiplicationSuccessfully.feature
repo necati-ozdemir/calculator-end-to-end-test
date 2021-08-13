@@ -1,4 +1,4 @@
-Ability: Student could succeed at MULTIPLICATION operation
+#Ability: Student could succeed at MULTIPLICATION operation
 
 #  Scenario Outline: Valid two numbers are supplied
 #

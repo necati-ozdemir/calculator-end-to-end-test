@@ -3,7 +3,7 @@ spring:
     additional-location: classpath:serenity.conf
 
 compose:
-  worker-ip: 10.150.17.141
+  worker-ip: 10.150.21.212
   path: src/test/resources/compose/docker-compose.yml
 
 selenium:

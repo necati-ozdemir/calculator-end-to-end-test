@@ -1,4 +1,4 @@
-Ability: Student could succeed at DIVISION operation
+#Ability: Student could succeed at DIVISION operation
 
 #  @CAL-19
 #  Scenario Outline: Valid two numbers are supplied
