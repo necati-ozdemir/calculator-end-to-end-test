@@ -5,7 +5,6 @@ version: "3.7"
 services:
   selenium-event-bus:
     image: selenium/event-bus:4.0.0-rc-1-prerelease-20210804
-    container_name: selenium-event-bus
     ports:
       - "4442:4442"
       - "4443:4443"
@@ -13,7 +12,6 @@ services:
 
   selenium-sessions:
     image: selenium/sessions:4.0.0-rc-1-prerelease-20210804
-    container_name: selenium-sessions
     ports:
       - "5556:5556"
     depends_on:
@@ -25,7 +23,6 @@ services:
 
   selenium-session-queue:
     image: selenium/session-queue:4.0.0-rc-1-prerelease-20210804
-    container_name: selenium-session-queue
     ports:
       - "5559:5559"
     depends_on:
@@ -37,7 +34,6 @@ services:
 
   selenium-distributor:
     image: selenium/distributor:4.0.0-rc-1-prerelease-20210804
-    container_name: selenium-distributor
     ports:
       - "5553:5553"
     depends_on:
@@ -55,7 +51,6 @@ services:
 
   selenium-router:
     image: selenium/router:4.0.0-rc-1-prerelease-20210804
-    container_name: selenium-router
     ports:
       - "4444:4444"
     depends_on:
@@ -69,6 +64,18 @@ services:
       - SE_SESSIONS_MAP_PORT=5556
       - SE_SESSION_QUEUE_HOST=selenium-session-queue
       - SE_SESSION_QUEUE_PORT=5559
+
+  node-docker:
+    image: selenium/node-docker:4.0.0-rc-1-prerelease-20210804
+    volumes:
+      - ../../../../../target/assets:/opt/selenium/assets
+      - ../../config.toml:/opt/bin/config.toml
+    depends_on:
+      - selenium-event-bus
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-event-bus
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
 
   #  chrome:
   #    image: selenium/node-chrome:4.0.0-rc-1-prerelease-20210713
@@ -111,19 +118,6 @@ services:
   #    deploy:
   #      replicas: 1
   #    entrypoint: bash -c 'SE_OPTS="--host $$HOSTNAME" /opt/bin/entry_point.sh'
-
-  node-docker:
-    image: selenium/node-docker:4.0.0-rc-1-prerelease-20210804
-    volumes:
-      - ./assets:/opt/selenium/assets
-      - ../../config.toml:/opt/bin/config.toml
-    depends_on:
-      - selenium-event-bus
-    environment:
-      - SE_EVENT_BUS_HOST=selenium-event-bus
-      - SE_EVENT_BUS_PUBLISH_PORT=4442
-      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-
 
 
 #  chrome_video:

@@ -17,14 +17,20 @@ public final class ComposeContainerService implements IContainerService {
 
     public ComposeContainerService(ComposeProperties composeProperties,
                                    CalculatorUIProperties calculatorUIProperties) {
-        this.composeContainer = new DockerComposeContainer<>(new File(composeProperties.getPath()))
+
+        new DockerComposeContainer<>(new File(composeProperties.getSeleniumGridPath()))
+                .withLocalCompose(true)
+                .start();
+
+        this.composeContainer = new DockerComposeContainer<>(new File(composeProperties.getCalculatorPath()))
                 .withEnv("WORKER_IP", composeProperties.getWorkerIp())
                 .withExposedService(
                         calculatorUIProperties.getHostname(),
                         calculatorUIProperties.getPort(),
                         Wait.forHttp("/")
                                 .withStartupTimeout(Duration.ofSeconds(30))
-                );
+                )
+                .withLocalCompose(true);
 
         this.composeContainer.start();
     }

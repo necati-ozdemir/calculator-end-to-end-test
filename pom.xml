@@ -22,7 +22,7 @@
         <testcontainers.version>1.15.1</testcontainers.version>
         <cucumber.version>6.6.0</cucumber.version>
         <selenium.version>3.141.59</selenium.version>
-        <serenity.version>2.4.34</serenity.version>
+        <serenity.version>2.5.7</serenity.version>
         <encoding>UTF-8</encoding>
     </properties>
 

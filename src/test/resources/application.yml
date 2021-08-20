@@ -3,8 +3,9 @@ spring:
     additional-location: classpath:serenity.conf
 
 compose:
-  worker-ip: 10.150.21.212
-  path: src/test/resources/compose/docker-compose.yml
+  worker-ip: 10.150.19.71
+  calculatorPath: src/test/resources/compose/docker-compose.yml
+  seleniumGridPath: src/test/resources/compose/selenium/docker-compose-v3-full-grid.yml
 
 selenium:
   grid4:
